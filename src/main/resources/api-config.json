@@ -1,0 +1,6 @@
+{
+  "apiPackage": "com.vorstdev.generated.profile.api",
+  "modelPackage": "com.vorstdev.generated.profile.domain",
+  "library": "spring",
+  "dateLibrary": "java8"
+}

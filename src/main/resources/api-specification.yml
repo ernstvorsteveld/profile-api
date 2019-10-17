@@ -1,0 +1,413 @@
+openapi: 3.0.1
+info:
+  title: User API
+  description: DEMO Self Service API vorstdev
+  version: "0.1"
+servers:
+  - url: https://www.vorstdev.com/
+tags:
+  - name: UserV1
+paths:
+  /profile/v1/users:
+    post:
+      tags:
+        - UserV1
+      summary: create a user
+      operationId: createUser
+      requestBody:
+        description: a new user without 'id'
+        content:
+          application/vnd.vorstdev.v1+json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: false
+      responses:
+        201:
+          description: successfully created user
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        400:
+          description: bad request
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: authorization failure
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: permissions denied
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: not found
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: duplicate email
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        429:
+          description: too many requests
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: internal server error
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: body
+  /profile/v1/users/{id}:
+    get:
+      tags:
+        - UserV1
+      summary: get a user by id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        401:
+          description: authorization failure
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: permissions denied
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: not found
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        429:
+          description: too many requests
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: internal server error
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - UserV1
+      summary: delete a user
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: successfully deleted
+          content: {}
+        401:
+          description: authorization failure
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: permissions denied
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: not found
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        429:
+          description: too many requests
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: internal server error
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      tags:
+        - UserV1
+      summary: partially update/patch a user
+      operationId: patchUser
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: patch operations list
+        content:
+          application/vnd.vorstdev.v1+json:
+            schema:
+              $ref: '#/components/schemas/UserPatch'
+        required: false
+      responses:
+        200:
+          description: successfully partially updated user
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        400:
+          description: bad request
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: authorization failure
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: permissions denied
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: not found
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: duplicate email
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        429:
+          description: too many requests
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: internal server error
+          content:
+            application/vnd.vorstdev.v1+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    Address:
+      required:
+        - type
+      type: object
+      properties:
+        country:
+          type: string
+        locality:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress:
+          type: string
+        type:
+          type: string
+          enum:
+            - work
+    Email:
+      required:
+        - type
+        - value
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - work
+        value:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: |
+            Error code: * SSA000001: uniqueness * SSA000002: tooMany * SSA000003: mutability * SSA000004: sensitive * SSA000005: invalidSyntax * SSA000006: invalidFilter * SSA000007: invalidPath * SSA000008: invalidValue * SSA000009: invalidVers * SSA000010: noTarget
+          enum:
+            - SSA000001
+            - SSA000002
+            - SSA000003
+            - SSA000004
+            - SSA000005
+            - SSA000006
+            - SSA000007
+            - SSA000008
+            - SSA000009
+            - SSA000010
+        description:
+          type: string
+          description: detail error message
+    Meta:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        lastModified:
+          type: string
+          format: date-time
+        location:
+          type: string
+          description: resource location URI
+      description: resource metadata
+    Name:
+      required:
+        - familyName
+        - givenName
+      type: object
+      properties:
+        familyName:
+          type: string
+        givenName:
+          type: string
+    PatchOperation:
+      required:
+        - op
+      type: object
+      properties:
+        op:
+          type: string
+          enum:
+            - add
+            - replace
+            - remove
+        path:
+          type: string
+        value:
+          type: object
+          properties: {}
+          description: corresponding 'value' of that field specified by 'path'
+    PhoneNumber:
+      required:
+        - type
+        - value
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - work
+            - mobile
+            - other
+        value:
+          type: string
+    Photo:
+      required:
+        - type
+        - value
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - photo
+        value:
+          type: string
+    User:
+      required:
+        - emails
+        - name
+        - userName
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: user status
+          default: false
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        externalId:
+          type: string
+          description: external unique resource id defined by provisioning client
+        id:
+          type: string
+          description: unique resource id defined by Tenant
+        name:
+          $ref: '#/components/schemas/Name'
+        phoneNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        photos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Photo'
+        userName:
+          type: string
+          description: MUST be same as work type email address
+    UserPatch:
+      required:
+        - Operations
+      type: object
+      properties:
+        Operations:
+          type: array
+          description: patch operations list
+          items:
+            $ref: '#/components/schemas/PatchOperation'
+    UserResponse:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          properties:
+            meta:
+              $ref: '#/components/schemas/Meta'
